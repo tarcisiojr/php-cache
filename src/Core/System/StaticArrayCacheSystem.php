@@ -17,7 +17,15 @@ class StaticArrayCacheSystem implements CacheSystem {
         return isset(static::$cache[$key]) ? static::$cache[$key] : null;
     }
 
-    public function setValue($key, $value) {
+    public function setValue($key, $value, $ttl = 0) {
         static::$cache[$key] = $value;
+    }
+
+    public function delete($key) {
+        unset(static::$cache[$key]);
+    }
+
+    public function clear() {
+        static::$cache = [];
     }
 }

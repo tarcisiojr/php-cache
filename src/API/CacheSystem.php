@@ -12,5 +12,9 @@ interface CacheSystem {
 
     public function getValue($key);
 
-    public function setValue($key, $value);
+    public function setValue($key, $value, $ttl = 0);
+
+    public function delete($key);
+
+    public function clear();
 }

@@ -17,12 +17,19 @@ class CacheTest extends \PHPUnit_Framework_TestCase {
         //echo " > ".$this->dummyMethod("a");
         //echo " > ".$this->dummyMethod();
 
-
-        echo " | > " . $this->dummyMethod2();
-        echo " | > " . $this->dummyMethod2();
-        echo " | > " . $this->dummyMethod2();
-        echo " | > " . $this->dummyMethod2();
-        echo " | > " . $this->dummyMethod2();
+        //echo "\n\n";
+        //
+        //$startTime = microtime(true);
+        //for ($i = 0; $i < 100; $i++) {
+        //    $this->dummyMethod2();
+        //}
+        //echo "Time:  " . number_format(( microtime(true) - $startTime), 4) . " Seconds\n";
+        //
+        //$startTime = microtime(true);
+        //for ($i = 0; $i < 100; $i++) {
+        //    $this->dummyMethod3();
+        //}
+        //echo "Time:  " . number_format(( microtime(true) - $startTime), 4) . " Seconds\n";
     }
 
     private function dummyMethod($a = "a", $b = "b") {
@@ -31,9 +38,13 @@ class CacheTest extends \PHPUnit_Framework_TestCase {
         })->once();
     }
 
+    private function dummyMethod3() {
+        return  rand(1, 100);
+    }
+
     private function dummyMethod2() {
         return Cache::create(function() {
             return  rand(1, 100);
-        })->times(2);
+        })->times(0);
     }
 }
