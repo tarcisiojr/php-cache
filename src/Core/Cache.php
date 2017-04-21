@@ -60,7 +60,7 @@ class Cache {
      * @return mixed
      */
     private function getObject() {
-        return $this->trace['object'];
+        return isset($this->trace['object']) ? $this->trace['object'] : null;
     }
 
     private function getHash() {

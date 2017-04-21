@@ -30,6 +30,22 @@ class CacheTest extends \PHPUnit_Framework_TestCase {
         //    $this->dummyMethod3();
         //}
         //echo "Time:  " . number_format(( microtime(true) - $startTime), 4) . " Seconds\n";
+
+        echo "\n> ".$this->dummyMetodo4();
+        echo "\n> ".$this->dummyMetodo4();
+        echo "\n> ".$this->dummyMetodo4();
+    }
+
+    private function dummyMetodo4() {
+        if (!function_exists(__NAMESPACE__ . '\fDummy')) {
+            function fDummy() {
+                return Cache::create(function() {
+                    return rand(1, 100);
+                })->times(2);
+            }
+        }
+
+        return fDummy();
     }
 
     private function dummyMethod($a = "a", $b = "b") {
