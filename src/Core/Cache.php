@@ -6,11 +6,11 @@
  * Time: 22:03
  */
 
-namespace Softbox\Cache\Core;
+namespace PHP\Cache\Core;
 
 use PHP\Cache\API\CacheStrategy;
 use PHP\Cache\API\CacheSystem;
-use PHP\Cache\Core\Strategy\OnceCacheStrategy;
+use PHP\Cache\Core\Strategy\ExactlyCacheStrategy;
 use PHP\Cache\Core\System\StaticArrayCacheSystem;
 
 class Cache {
@@ -38,13 +38,13 @@ class Cache {
     /**
      * Cache constructor.
      *
-     * @param               $trace Debug trace.
-     * @param               $callback Callback function.
+     * @param               $trace         Debug trace.
+     * @param               $callback      Callback function.
      * @param CacheStrategy $cacheStrategy Strategy that will be used for update value.
-     * @param CacheSystem   $cacheSystem Cache system.
+     * @param CacheSystem   $cacheSystem   Cache system.
      */
     private function __construct($trace, $callback) {
-        $this->trace = $trace;
+        $this->trace    = $trace;
         $this->callback = $callback;
     }
 
@@ -64,13 +64,7 @@ class Cache {
     }
 
     private function getHash() {
-        $normalizedArguments = array_map(function($argument) {
-            return is_object($argument) ? spl_object_hash($argument) : $argument;
-        }, $this->getArguments());
-
-        $hashObject = spl_object_hash($this->getObject());
-
-        return md5($hashObject . '.' . $this->getFunctionName() . '.' . serialize($normalizedArguments));
+        return $this->cacheStrategy->getHash($this->getObject(), $this->getFunctionName(), $this->getArguments());
     }
 
     private function exec() {
@@ -88,12 +82,14 @@ class Cache {
             $state = $this->cacheStrategy->init();
 
             $update = true;
+        } else {
+            list($state, $update) = $this->cacheStrategy->update($state);
         }
 
-        if ($update || $this->cacheStrategy->update($state)) {
+        if ($update) {
             $value = $this->exec();
 
-            $state = $this->cacheStrategy->setValue($state,$hash . '.value', $value);
+            $this->cacheStrategy->setValue($hash . '.value', $value);
 
         } else {
             $value = $this->cacheStrategy->getValue($hash . '.value');
@@ -105,7 +101,11 @@ class Cache {
     }
 
     public function once() {
-        $this->cacheStrategy = new OnceCacheStrategy();
+        return $this->times(0);
+    }
+
+    public function times($times = 1) {
+        $this->cacheStrategy = new ExactlyCacheStrategy($times);
 
         return $this->getValue();
     }

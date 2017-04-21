@@ -24,5 +24,7 @@ interface CacheStrategy {
 
     public function getValue($key);
 
-    public function setValue($state, $key, $value);
+    public function setValue($key, $value);
+
+    public function getHash($object, $method, $args);
 }
