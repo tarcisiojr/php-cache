@@ -11,6 +11,8 @@ namespace PHP\Cache\Core;
 use PHP\Cache\API\CacheStrategy;
 use PHP\Cache\API\CacheSystem;
 use PHP\Cache\Core\Strategy\ExactlyCacheStrategy;
+use PHP\Cache\Core\Strategy\StatefullCacheStrategy;
+use PHP\Cache\Core\Strategy\StatelessCacheStrategy;
 use PHP\Cache\Core\System\FileCacheSystem;
 use PHP\Cache\Core\System\StaticArrayCacheSystem;
 
@@ -35,6 +37,8 @@ class Cache {
      * @var CacheStrategy
      */
     protected $cacheStrategy;
+
+    protected $stateStrategyClassName = StatelessCacheStrategy::class;
 
     /**
      * Cache constructor.
@@ -94,6 +98,12 @@ class Cache {
 
         } else {
             $value = $this->cacheStrategy->getValue($hash . '.value');
+
+            if ($value === null) {
+                $value = $this->exec();
+
+                $this->cacheStrategy->setValue($hash . '.value', $value);
+            }
         }
 
         static::getStateCache()->setValue($hash . '.state', $state);
@@ -101,19 +111,30 @@ class Cache {
         return $value;
     }
 
+    public function statefull() {
+        $this->stateStrategyClassName = StatefullCacheStrategy::class;
+
+        return $this;
+    }
+
+    public function stateless() {
+        $this->stateStrategyClassName = StatelessCacheStrategy::class;
+
+        return $this;
+    }
+
     public function once() {
         return $this->times(0);
     }
 
     public function times($times = 1) {
-        $this->cacheStrategy = new ExactlyCacheStrategy($times);
+        $this->cacheStrategy = new $this->stateStrategyClassName(new ExactlyCacheStrategy($times));
 
         return $this->getValue();
     }
 
     private static function getStateCache() {
         if (static::$stateCache == null) {
-            //static::$stateCache = new StaticArrayCacheSystem();
             static::$stateCache = new FileCacheSystem();
         }
 

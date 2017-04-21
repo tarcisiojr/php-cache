@@ -34,15 +34,16 @@ class CacheTest extends \PHPUnit_Framework_TestCase {
         echo "\n> ".$this->dummyMetodo4();
         echo "\n> ".$this->dummyMetodo4();
         echo "\n> ".$this->dummyMetodo4();
+        echo "\n> ".$this->dummyMetodo4();
+        echo "\n> ".$this->dummyMetodo4();
     }
 
     private function dummyMetodo4() {
         if (!function_exists(__NAMESPACE__ . '\fDummy')) {
             function fDummy() {
                 return Cache::create(function() {
-                    echo "xxx";
                     return rand(1, 100);
-                })->times(10);
+                })->statefull()->times(3);
             }
         }
 
