@@ -40,8 +40,9 @@ class CacheTest extends \PHPUnit_Framework_TestCase {
         if (!function_exists(__NAMESPACE__ . '\fDummy')) {
             function fDummy() {
                 return Cache::create(function() {
+                    echo "xxx";
                     return rand(1, 100);
-                })->times(2);
+                })->times(10);
             }
         }
 

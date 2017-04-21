@@ -9,6 +9,7 @@
 namespace PHP\Cache\Core\Strategy;
 
 use PHP\Cache\API\CacheStrategy;
+use PHP\Cache\Core\System\FileCacheSystem;
 use PHP\Cache\Core\System\StaticArrayCacheSystem;
 
 class ExactlyCacheStrategy implements CacheStrategy {
@@ -23,7 +24,7 @@ class ExactlyCacheStrategy implements CacheStrategy {
 
     private static function getCache() {
         if (static::$cache == null) {
-            static::$cache = new StaticArrayCacheSystem();
+            static::$cache = new FileCacheSystem();//new StaticArrayCacheSystem();
         }
 
         return static::$cache;

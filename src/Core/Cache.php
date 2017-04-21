@@ -11,6 +11,7 @@ namespace PHP\Cache\Core;
 use PHP\Cache\API\CacheStrategy;
 use PHP\Cache\API\CacheSystem;
 use PHP\Cache\Core\Strategy\ExactlyCacheStrategy;
+use PHP\Cache\Core\System\FileCacheSystem;
 use PHP\Cache\Core\System\StaticArrayCacheSystem;
 
 class Cache {
@@ -112,7 +113,8 @@ class Cache {
 
     private static function getStateCache() {
         if (static::$stateCache == null) {
-            static::$stateCache = new StaticArrayCacheSystem();
+            //static::$stateCache = new StaticArrayCacheSystem();
+            static::$stateCache = new FileCacheSystem();
         }
 
         return static::$stateCache;
