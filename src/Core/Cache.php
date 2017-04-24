@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: tarcisio
- * Date: 20/04/17
- * Time: 22:03
- */
 
 namespace PHP\Cache\Core;
 
@@ -32,7 +26,7 @@ class Cache {
     protected $trace;
 
     /**
-     * @var function
+     * @var callable function
      */
     protected $callback;
 
@@ -47,11 +41,11 @@ class Cache {
      * @param               $trace         Debug trace.
      * @param               $callback      Callback function.
      * @param CacheStrategy $cacheStrategy Strategy that will be used for update value.
-     * @param CacheSystem   $cacheSystem   Cache system.
+     * @param CacheSystem $cacheSystem Cache system.
      */
     private function __construct($trace, $callback) {
-        $this->trace    = $trace;
-        $this->callback = $callback;
+        $this->trace         = $trace;
+        $this->callback      = $callback;
         $this->cacheStrategy = new DefaultCacheStrategy();
     }
 

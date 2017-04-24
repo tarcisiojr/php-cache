@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: tarcisio
- * Date: 19/04/17
- * Time: 21:42
- */
 
 namespace PHP\Cache\Core\Test;
 
@@ -12,14 +6,13 @@ use PHP\Cache\Core\ApplicationAspectKernel;
 use PHP\Cache\Core\Cache;
 use PHP\Cache\Core\TesteCache;
 
-
 class CacheTest extends \PHPUnit_Framework_TestCase {
 
     public function testCacheOnce() {
-        echo "\n > ".$this->dummyMethod();
-        echo "\n > ".$this->dummyMethod("a");
-        echo "\n > ".$this->dummyMethod();
-        echo "\n > ".$this->dummyMethod();
+        $initialValue = $this->dummyMethod();
+        $this->assertNotEquals($initialValue, $this->dummyMethod("a"), 'Valor retornado não foi idêntico');
+        $this->assertEquals($initialValue, $this->dummyMethod(), 'Valor retornado não foi idêntico');
+        $this->assertEquals($initialValue, $this->dummyMethod(), 'Valor retornado não foi idêntico');
 
         //echo "\n\n";
         //
@@ -57,9 +50,10 @@ class CacheTest extends \PHPUnit_Framework_TestCase {
     //}
 
     private function dummyMethod($a = "a", $b = "b") {
-        return Cache::create(function() {
+        return Cache::create(function () {
             return rand(1, 100);
-        })->once()->statefull()->scope(false)->ttl(10)->get();
+        })->once()->statefull()->scope(false)->ttl(10)->get()
+            ;
     }
 
     //private function dummyMethod3() {

@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: tarcisio
- * Date: 20/04/17
- * Time: 22:59
- */
 
 namespace PHP\Cache\Core\Strategy;
 

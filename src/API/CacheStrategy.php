@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: tarcisio
- * Date: 20/04/17
- * Time: 22:33
- */
 
 namespace PHP\Cache\API;
 

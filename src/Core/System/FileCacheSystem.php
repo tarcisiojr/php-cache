@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: tarcisio
- * Date: 20/04/17
- * Time: 23:21
- */
 
 namespace PHP\Cache\Core\System;
 
@@ -59,7 +53,7 @@ class FileCacheSystem implements CacheSystem {
 
             static::$cache[$key] = [
                 'ttl'   => $ttl == 0 ? 'forever' : date("Y-m-d H:i:s", strtotime('now + ' . $ttl . ' seconds')),
-                'value' => $value
+                'value' => $value,
             ];
 
             $this->update();
@@ -93,6 +87,8 @@ class FileCacheSystem implements CacheSystem {
 
                 static::$cache = json_decode(file_get_contents($this->fileName), true);
             }
+        } else {
+            touch($this->fileName);
         }
     }
 

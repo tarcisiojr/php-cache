@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: tarcisio
- * Date: 23/04/17
- * Time: 18:54
- */
 
 namespace PHP\Cache\Core\Strategy;
 
@@ -36,7 +30,7 @@ class DefaultCacheStrategy implements CacheStrategy {
     }
 
     public function getHash($object, $methodName, $args) {
-        $normalizedArguments = array_map(function($argument) {
+        $normalizedArguments = array_map(function ($argument) {
             return is_object($argument) ? spl_object_hash($argument) : $argument;
         }, $args);
 

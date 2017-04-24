@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: tarcisio
- * Date: 23/04/17
- * Time: 11:04
- */
 
 namespace PHP\Cache\Core\Strategy;
 
@@ -27,7 +21,7 @@ class TTLCacheStrategy extends BaseCacheStrategy {
 
         return array_merge($state, [
             self::TTL_STATE_NAME => $this->ttl == 0 ?
-                'forever' : date("Y-m-d H:i:s", strtotime('now + ' . $this->ttl . ' seconds'))
+                'forever' : date("Y-m-d H:i:s", strtotime('now + ' . $this->ttl . ' seconds')),
         ]);
     }
 
