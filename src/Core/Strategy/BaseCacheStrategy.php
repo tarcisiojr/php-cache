@@ -12,7 +12,7 @@ use PHP\Cache\API\CacheStrategy;
 use PHP\Cache\Core\System\FileCacheSystem;
 use PHP\Cache\Core\System\StaticArrayCacheSystem;
 
-class StateCacheStrategy implements CacheStrategy {
+class BaseCacheStrategy implements CacheStrategy {
 
     private $strategy;
 
@@ -24,16 +24,18 @@ class StateCacheStrategy implements CacheStrategy {
         return $this->strategy->init();
     }
 
-    public function update($state, $value = null) {
-        return $this->strategy->update($state, $value);
+    public function update($state) {
+        list($newState, $update) = $this->strategy->update($state);
+
+        return [array_merge($state, $newState), $update];
     }
 
     public function getValue($key) {
         return $this->strategy->getValue($key);
     }
 
-    public function setValue($key, $value) {
-        $this->strategy->setValue($key, $value);
+    public function setValue($key, $value, $ttl = 0) {
+        $this->strategy->setValue($key, $value, $ttl);
     }
 
     public function getHash($object, $methodName, $args) {

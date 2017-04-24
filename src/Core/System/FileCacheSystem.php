@@ -102,4 +102,7 @@ class FileCacheSystem implements CacheSystem {
         file_put_contents($this->fileName, json_encode(static::$cache, JSON_PRETTY_PRINT));
     }
 
+    public function isPersistent() {
+        return true;
+    }
 }

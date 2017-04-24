@@ -10,9 +10,12 @@ namespace PHP\Cache\Core;
 
 use PHP\Cache\API\CacheStrategy;
 use PHP\Cache\API\CacheSystem;
+use PHP\Cache\Core\Strategy\DefaultCacheStrategy;
 use PHP\Cache\Core\Strategy\ExactlyCacheStrategy;
+use PHP\Cache\Core\Strategy\ScopeCacheStrategy;
 use PHP\Cache\Core\Strategy\StatefullCacheStrategy;
 use PHP\Cache\Core\Strategy\StatelessCacheStrategy;
+use PHP\Cache\Core\Strategy\TTLCacheStrategy;
 use PHP\Cache\Core\System\FileCacheSystem;
 use PHP\Cache\Core\System\StaticArrayCacheSystem;
 
@@ -38,8 +41,6 @@ class Cache {
      */
     protected $cacheStrategy;
 
-    protected $stateStrategyClassName = StatelessCacheStrategy::class;
-
     /**
      * Cache constructor.
      *
@@ -51,6 +52,7 @@ class Cache {
     private function __construct($trace, $callback) {
         $this->trace    = $trace;
         $this->callback = $callback;
+        $this->cacheStrategy = new DefaultCacheStrategy();
     }
 
     private function getArguments() {
@@ -112,13 +114,19 @@ class Cache {
     }
 
     public function statefull() {
-        $this->stateStrategyClassName = StatefullCacheStrategy::class;
+        $this->cacheStrategy = new StatefullCacheStrategy($this->cacheStrategy);
 
         return $this;
     }
 
     public function stateless() {
-        $this->stateStrategyClassName = StatelessCacheStrategy::class;
+        $this->cacheStrategy = new StatelessCacheStrategy($this->cacheStrategy);
+
+        return $this;
+    }
+
+    public function ttl($ttl) {
+        $this->cacheStrategy = new TTLCacheStrategy($this->cacheStrategy, $ttl);
 
         return $this;
     }
@@ -128,8 +136,18 @@ class Cache {
     }
 
     public function times($times = 1) {
-        $this->cacheStrategy = new $this->stateStrategyClassName(new ExactlyCacheStrategy($times));
+        $this->cacheStrategy = new ExactlyCacheStrategy($this->cacheStrategy, $times);
 
+        return $this;
+    }
+
+    public function scope($instance = true) {
+        $this->cacheStrategy = new ScopeCacheStrategy($this->cacheStrategy, $instance);
+
+        return $this;
+    }
+
+    public function get() {
         return $this->getValue();
     }
 

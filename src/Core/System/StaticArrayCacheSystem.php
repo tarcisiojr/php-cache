@@ -28,4 +28,8 @@ class StaticArrayCacheSystem implements CacheSystem {
     public function clear() {
         static::$cache = [];
     }
+
+    public function isPersistent() {
+        return false;
+    }
 }

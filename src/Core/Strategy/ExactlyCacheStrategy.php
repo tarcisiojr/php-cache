@@ -11,54 +11,33 @@ namespace PHP\Cache\Core\Strategy;
 use PHP\Cache\API\CacheStrategy;
 use PHP\Cache\Core\System\FileCacheSystem;
 use PHP\Cache\Core\System\StaticArrayCacheSystem;
+use Symfony\Component\Yaml\Tests\ParseExceptionTest;
 
-class ExactlyCacheStrategy implements CacheStrategy {
+class ExactlyCacheStrategy extends BaseCacheStrategy {
 
-    private static $cache;
+    const COUNT_STATE_NAME = ExactlyCacheStrategy::class . '::' . 'count';
 
     private $times;
 
-    public function __construct($times = 0) {
+    public function __construct(CacheStrategy $strategy, $times = 0) {
+        parent::__construct($strategy);
+
         $this->times = $times;
     }
 
-    private static function getCache() {
-        if (static::$cache == null) {
-            static::$cache = new FileCacheSystem();//new StaticArrayCacheSystem();
-        }
-
-        return static::$cache;
-    }
-
     public function init() {
-        return ['count' => 1];
+        return array_merge(parent::init(), [self::COUNT_STATE_NAME => 1]);
     }
 
-    public function update($state, $value = null) {
-        if ($this->times > 0 && $state['count'] >= $this->times) {
-            return [ $this->init(), true ];
+    public function update($state) {
+        list($newState, $update) = parent::update($state);
+
+        if ($this->times > 0 && $newState[self::COUNT_STATE_NAME] >= $this->times) {
+            return [array_merge($newState, $this->init()), true];
         }
 
-        $state['count']++;
+        $newState[self::COUNT_STATE_NAME]++;
 
-        return [ $state, false ];
-    }
-
-    public function getValue($key) {
-        return static::getCache()->getValue($key);
-    }
-
-    public function setValue($key, $value) {
-        static::getCache()->setValue($key, $value);
-    }
-
-    public function getHash($object, $methodName, $args) {
-        $normalizedArguments = array_map(function($argument) {
-            return is_object($argument) ? spl_object_hash($argument) : $argument;
-        }, $args);
-
-        $hashObject = $object ? spl_object_hash($object) : "#";
-
-        return md5($hashObject . '#' . $methodName . '#' . serialize($normalizedArguments));
+        return [$newState, $update];
     }
 }

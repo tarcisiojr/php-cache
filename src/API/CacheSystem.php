@@ -17,4 +17,6 @@ interface CacheSystem {
     public function delete($key);
 
     public function clear();
+
+    public function isPersistent();
 }
