@@ -153,6 +153,11 @@ class Cache {
         return static::$stateCache;
     }
 
+    public static function setStateCacheSystem(CacheSystem $cacheSystem) {
+        static::$stateCache = $cacheSystem;
+    }
+
+
     public static function create($callback) {
         return new Cache(debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 2)[1], $callback);
     }
