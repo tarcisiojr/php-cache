@@ -27,7 +27,7 @@ class CacheTest extends \PHPUnit_Framework_TestCase
     private function dummyMethod($a = "a", $b = "b")
     {
         return Cache::create(function () use ($a, $b) {
-            return rand(1, 100);
+            return  date("Y-m-d H:i:s");
         })
             ->once()
             ->statefull()
