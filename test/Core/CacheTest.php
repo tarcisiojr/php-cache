@@ -27,9 +27,9 @@ class CacheTest extends \PHPUnit_Framework_TestCase
     private function dummyMethod($a = "a", $b = "b")
     {
         return Cache::create(function () use ($a, $b) {
-            $dt = date("Y-m-d H:i:s");
+            $curDate = date("Y-m-d H:i:s");
             sleep(1);
-            return $dt;
+            return $curDate;
         })
             ->once()
             ->statefull()
