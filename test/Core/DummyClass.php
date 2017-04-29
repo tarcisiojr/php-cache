@@ -4,7 +4,7 @@ namespace Test\PHP\Cache\Core;
 
 use PHP\Cache\Core\Cache;
 
-trait DummyMethod
+class DummyClass
 {
     private function createDummyBase($a = "a", $b = "b")
     {
