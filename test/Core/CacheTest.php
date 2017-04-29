@@ -10,7 +10,7 @@ class CacheTest extends \PHPUnit_Framework_TestCase
     public function testCacheMethod()
     {
         $initialValue = $this->dummyMethod();
-        $this->assertNotEquals($initialValue, $this->dummyMethod("a"), 'Valor retornado foi idêntico');
+        $this->assertNotEquals($initialValue, $this->dummyMethod("b"), 'Valor retornado foi idêntico');
         $this->assertEquals($initialValue, $this->dummyMethod(), 'Valor retornado não foi idêntico');
         $this->assertEquals($initialValue, $this->dummyMethod(), 'Valor retornado não foi idêntico');
     }
