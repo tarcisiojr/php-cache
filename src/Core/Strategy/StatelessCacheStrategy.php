@@ -2,6 +2,7 @@
 
 namespace PHP\Cache\Core\Strategy;
 
+use PHP\Cache\API\CacheSystem;
 use PHP\Cache\Core\System\StaticArrayCacheSystem;
 
 class StatelessCacheStrategy extends BaseCacheStrategy {
