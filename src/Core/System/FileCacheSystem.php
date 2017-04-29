@@ -17,7 +17,7 @@ class FileCacheSystem implements CacheSystem {
     private $lockFile;
 
     public function __construct($fileName = null) {
-        if ($fileName == null) {
+        if ($fileName === null) {
             $this->fileName = sys_get_temp_dir() . '/cache.json';
 
         } else {
