@@ -1,5 +1,5 @@
 {
-    "name": "tarcisio/php-cache",
+    "name": "tarcisiojr/php-cache",
     "description": "Sistema para cache de métodos baseado em https://github.com/spatie/once",
     "type": "library",
     "authors": [
