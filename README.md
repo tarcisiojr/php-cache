@@ -1,5 +1,6 @@
 # PHP-CACHE
 [![Build Status](https://travis-ci.org/tarcisiojr/php-cache.svg?branch=master)](https://travis-ci.org/tarcisiojr/php-cache)
+[![codecov](https://codecov.io/gh/tarcisiojr/php-cache/branch/master/graph/badge.svg)](https://codecov.io/gh/tarcisiojr/php-cache)
 [![Latest Stable Version](https://poser.pugx.org/tarcisiojr/php-cache/v/stable)](https://packagist.org/packages/tarcisiojr/php-cache)
 [![Total Downloads](https://poser.pugx.org/tarcisiojr/php-cache/downloads)](https://packagist.org/packages/tarcisiojr/php-cache)
 [![Latest Unstable Version](https://poser.pugx.org/tarcisiojr/php-cache/v/unstable)](https://packagist.org/packages/tarcisiojr/php-cache)
