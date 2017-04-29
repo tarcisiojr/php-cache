@@ -1,5 +1,9 @@
 # PHP-CACHE
 [![Build Status](https://travis-ci.org/tarcisiojr/php-cache.svg?branch=master)](https://travis-ci.org/tarcisiojr/php-cache)
+[![Latest Stable Version](https://poser.pugx.org/tarcisiojr/php-cache/v/stable)](https://packagist.org/packages/tarcisiojr/php-cache)
+[![Total Downloads](https://poser.pugx.org/tarcisiojr/php-cache/downloads)](https://packagist.org/packages/tarcisiojr/php-cache)
+[![Latest Unstable Version](https://poser.pugx.org/tarcisiojr/php-cache/v/unstable)](https://packagist.org/packages/tarcisiojr/php-cache)
+[![composer.lock](https://poser.pugx.org/tarcisiojr/php-cache/composerlock)](https://packagist.org/packages/tarcisiojr/php-cache)
 
 Biblioteca para baseada na ideia do pacote [once]('https://github.com/spatie/once'). 
 Esta biblioteca permite cachear métodos podendo utilizar diversas estratégias para o comportamento do cache. 
