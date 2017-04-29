@@ -5,6 +5,7 @@
 [![Total Downloads](https://poser.pugx.org/tarcisiojr/php-cache/downloads)](https://packagist.org/packages/tarcisiojr/php-cache)
 [![Latest Unstable Version](https://poser.pugx.org/tarcisiojr/php-cache/v/unstable)](https://packagist.org/packages/tarcisiojr/php-cache)
 [![composer.lock](https://poser.pugx.org/tarcisiojr/php-cache/composerlock)](https://packagist.org/packages/tarcisiojr/php-cache)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/eafc1a0d-c3a7-41b9-ada3-f73f00ca3c87/mini.png)](https://insight.sensiolabs.com/projects/eafc1a0d-c3a7-41b9-ada3-f73f00ca3c87)
 
 Biblioteca para baseada na ideia do pacote [once]('https://github.com/spatie/once'). 
 Esta biblioteca permite cachear métodos podendo utilizar diversas estratégias para o comportamento do cache. 
