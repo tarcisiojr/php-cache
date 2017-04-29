@@ -12,7 +12,9 @@ class FileCacheSystem implements CacheSystem {
 
     private $fileName;
 
-    private $fileLock;
+    private $lockFileName;
+
+    private $lockFile;
 
     public function __construct($fileName = null) {
         if ($fileName == null) {
@@ -22,7 +24,9 @@ class FileCacheSystem implements CacheSystem {
             $this->fileName = $fileName;
         }
 
-        $this->fileLock = fopen($this->fileName . '.lock', 'w+');
+        $this->lockFileName = $this->fileName . '.lock';
+
+        $this->initLockFile();
     }
 
     public function getValue($key) {
@@ -37,7 +41,7 @@ class FileCacheSystem implements CacheSystem {
                 && ($cachedInfo['ttl'] == 'forever'
                     || strtotime($cachedInfo['ttl']) > strtotime('now'))
             ) {
-                return $cachedInfo['value'];
+                return unserialize($cachedInfo['value']);
             }
         } finally {
             $this->unlock();
@@ -48,12 +52,16 @@ class FileCacheSystem implements CacheSystem {
 
     public function setValue($key, $value, $ttl = 0) {
         try {
+            if (is_object($value) && !($value instanceof \Serializable)) {
+                $value = null;
+            }
+
             $this->lock(false);
             $this->init();
 
             static::$cache[$key] = [
                 'ttl'   => $ttl == 0 ? 'forever' : date("Y-m-d H:i:s", strtotime('now + ' . $ttl . ' seconds')),
-                'value' => $value,
+                'value' => serialize($value),
             ];
 
             $this->update();
@@ -63,19 +71,40 @@ class FileCacheSystem implements CacheSystem {
     }
 
     public function delete($key) {
-        unset(static::$cache[$key]);
+        try {
+            $this->lock();
+
+            unset(static::$cache[$key]);
+
+            $this->update();
+
+        } finally {
+            $this->unlock();
+        }
     }
 
     public function clear() {
         static::$cache = [];
+
+        if (file_exists($this->fileName)) {
+            unlink($this->fileName);
+        }
+
+        if (file_exists($this->lockFileName)) {
+            $this->releaseLockFile();
+
+            unlink($this->lockFileName);
+
+            $this->initLockFile();
+        }
     }
 
     private function lock($share = false) {
-        flock($this->fileLock, $share ? LOCK_SH : LOCK_EX);
+        flock($this->lockFile, $share ? LOCK_SH : LOCK_EX);
     }
 
     private function unlock() {
-        flock($this->fileLock, LOCK_UN);
+        flock($this->lockFile, LOCK_UN);
     }
 
     private function init() {
@@ -100,5 +129,21 @@ class FileCacheSystem implements CacheSystem {
 
     public function isPersistent() {
         return true;
+    }
+
+    public function getFileName() {
+        return $this->fileName;
+    }
+
+    public function getLockFileName() {
+        return $this->lockFileName;
+    }
+
+    private function initLockFile() {
+        $this->lockFile = fopen($this->lockFileName, 'w+');
+    }
+
+    private function releaseLockFile() {
+        fclose($this->lockFile);
     }
 }
