@@ -26,7 +26,7 @@ class DefaultCacheStrategy implements CacheStrategy {
     }
 
     public function setValue($key, $value, $ttl = 0) {
-        $this->cache->setValue($key, $value, $ttl = 0);
+        $this->cache->setValue($key, $value, $ttl);
     }
 
     public function getHash($object, $methodName, $args) {
