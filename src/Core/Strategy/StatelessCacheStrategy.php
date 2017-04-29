@@ -11,12 +11,15 @@ class StatelessCacheStrategy extends BaseCacheStrategy {
 
     public static function setCacheSystem(CacheSystem $cacheSystem) {
         if ($cacheSystem->isPersistent()) {
-            throw new NotAllowedCacheSystem('Only allowed not persistent cache system.');
+            throw new CacheSystemNotAllowedException('Only allowed not persistent cache system.');
         }
 
         static::$cache = $cacheSystem;
     }
 
+    /**
+     * @return CacheSystem
+     */
     private static function getCache() {
         if (static::$cache === null) {
             static::$cache = new StaticArrayCacheSystem();
@@ -26,10 +29,12 @@ class StatelessCacheStrategy extends BaseCacheStrategy {
     }
 
     public function getValue($key) {
-        return static::getCache()->getValue($key);
+        return static::getCache()
+            ->getValue($key);
     }
 
     public function setValue($key, $value, $ttl = 0) {
-        static::getCache()->setValue($key, $value, $ttl);
+        static::getCache()
+            ->setValue($key, $value, $ttl);
     }
 }

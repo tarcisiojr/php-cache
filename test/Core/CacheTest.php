@@ -33,7 +33,6 @@ class CacheTest extends \PHPUnit_Framework_TestCase
             ->statefull()
             ->scope(false)
             ->ttl(10)
-            ->get()
-            ;
+            ->get();
     }
 }

@@ -6,7 +6,6 @@ use PHP\Cache\Core\System\StaticArrayCacheSystem;
 
 class StaticArrayCacheSystemTest extends \PHPUnit_Framework_TestCase {
 
-
     public function setUp() {
         $sys = new StaticArrayCacheSystem();
         $sys->clear();

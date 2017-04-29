@@ -33,7 +33,7 @@ class DefaultCacheStrategyTest extends \PHPUnit_Framework_TestCase {
 
         $this->assertCount(1, $ret);
         $this->assertTrue(isset($ret['test']));
-        $this->assertEquals(1234, $ret[ 'test']);
+        $this->assertEquals(1234, $ret['test']);
         $this->assertFalse($upd);
     }
 

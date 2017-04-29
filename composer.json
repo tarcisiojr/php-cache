@@ -1,26 +1,26 @@
 {
-    "name": "tarcisiojr/php-cache",
-    "description": "Sistema para cache de métodos baseado em https://github.com/spatie/once",
-    "type": "library",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Tarcísio Júnior",
-            "email": "tarcisio@softbox.com.br"
-        }
-    ],
-    "autoload": {
-        "psr-4": {
-            "PHP\\Cache\\": "src/",
-            "Test\\PHP\\Cache\\": "test/"
-        }
-    },
-    "require": {
-    },
-    "scripts": {
-        "test": "vendor/bin/phpunit"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "5.5.*"
+  "name": "tarcisiojr/php-cache",
+  "description": "Sistema para cache de métodos baseado em https://github.com/spatie/once",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Tarcísio Júnior",
+      "email": "tarcisio@softbox.com.br"
     }
+  ],
+  "autoload": {
+    "psr-4": {
+      "PHP\\Cache\\": "src/",
+      "Test\\PHP\\Cache\\": "test/"
+    }
+  },
+  "require": {
+  },
+  "scripts": {
+    "test": "vendor/bin/phpunit"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "5.5.*"
+  }
 }

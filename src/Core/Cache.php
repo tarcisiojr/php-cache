@@ -7,10 +7,11 @@ use PHP\Cache\API\CacheSystem;
 use PHP\Cache\Core\Strategy\DefaultCacheStrategy;
 use PHP\Cache\Core\Strategy\ExactlyCacheStrategy;
 use PHP\Cache\Core\Strategy\ScopeCacheStrategy;
-use PHP\Cache\Core\Strategy\StatefullCacheStrategy;
+use PHP\Cache\Core\Strategy\StatefulCacheStrategy;
 use PHP\Cache\Core\Strategy\StatelessCacheStrategy;
 use PHP\Cache\Core\Strategy\TTLCacheStrategy;
 use PHP\Cache\Core\System\FileCacheSystem;
+use PHP\Cache\Core\System\StaticArrayCacheSystem;
 
 class Cache {
 
@@ -40,11 +41,11 @@ class Cache {
      * @param               $trace         Debug trace.
      * @param               $callback      Callback function.
      * @param CacheStrategy $cacheStrategy Strategy that will be used for update value.
-     * @param CacheSystem $cacheSystem Cache system.
+     * @param CacheSystem   $cacheSystem   Cache system.
      */
     private function __construct($trace, $callback) {
-        $this->trace         = $trace;
-        $this->callback      = $callback;
+        $this->trace = $trace;
+        $this->callback = $callback;
         $this->cacheStrategy = new DefaultCacheStrategy();
     }
 
@@ -74,7 +75,8 @@ class Cache {
     private function getValue() {
         $hash = $this->getHash();
 
-        $state = static::getStateCache()->getValue($hash . '.state');
+        $state = static::getStateCache()
+            ->getValue($hash . '.state');
 
         $update = false;
 
@@ -101,13 +103,14 @@ class Cache {
             }
         }
 
-        static::getStateCache()->setValue($hash . '.state', $state);
+        static::getStateCache()
+            ->setValue($hash . '.state', $state);
 
         return $value;
     }
 
     public function statefull() {
-        $this->cacheStrategy = new StatefullCacheStrategy($this->cacheStrategy);
+        $this->cacheStrategy = new StatefulCacheStrategy($this->cacheStrategy);
 
         return $this;
     }
@@ -155,7 +158,6 @@ class Cache {
     public static function setStateCacheSystem(CacheSystem $cacheSystem) {
         static::$stateCache = $cacheSystem;
     }
-
 
     public static function create($callback) {
         return new Cache(debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 2)[1], $callback);

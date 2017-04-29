@@ -15,7 +15,7 @@ class Value implements \Serializable {
 
     public function serialize() {
         return serialize([
-            $this->valueA, $this->valueB
+            $this->valueA, $this->valueB,
         ]);
     }
 
@@ -33,7 +33,7 @@ class FileCacheSystemTest extends \PHPUnit_Framework_TestCase {
     protected $lockFileName;
 
     public function setUp() {
-        $this->fileName  = sys_get_temp_dir() . '/' . uniqid('FileCacheSystemTest', true) . '.json';
+        $this->fileName = sys_get_temp_dir() . '/' . uniqid('FileCacheSystemTest', true) . '.json';
         $this->lockFileName = $this->fileName . '.lock';
 
         $this->deleteFiles();
@@ -49,7 +49,7 @@ class FileCacheSystemTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testGetFileName() {
-        $fileName = sys_get_temp_dir()  . '/teste1.json';
+        $fileName = sys_get_temp_dir() . '/teste1.json';
 
         $ins = new FileCacheSystem($fileName);
         $this->assertEquals($fileName, $ins->getFileName());
@@ -67,7 +67,7 @@ class FileCacheSystemTest extends \PHPUnit_Framework_TestCase {
         $ins = new FileCacheSystem($this->fileName);
         $ins->setValue('test1', 123);
         $ins->setValue('test2', 'abc');
-        $ins->setValue('test3', array('1', 2));
+        $ins->setValue('test3', ['1', 2]);
         $ins->setValue('test4', 10.5);
 
         $this->assertEquals(123, $ins->getValue('test1'));
