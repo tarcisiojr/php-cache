@@ -21,7 +21,7 @@ class StatefulCacheStrategy extends BaseCacheStrategy {
      * @return CacheSystem
      */
     private static function getCache() {
-        if (static::$cache == null) {
+        if (static::$cache === null) {
             static::$cache = new FileCacheSystem();
         }
 

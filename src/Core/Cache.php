@@ -11,7 +11,6 @@ use PHP\Cache\Core\Strategy\StatefulCacheStrategy;
 use PHP\Cache\Core\Strategy\StatelessCacheStrategy;
 use PHP\Cache\Core\Strategy\TTLCacheStrategy;
 use PHP\Cache\Core\System\FileCacheSystem;
-use PHP\Cache\Core\System\StaticArrayCacheSystem;
 
 class Cache {
 
