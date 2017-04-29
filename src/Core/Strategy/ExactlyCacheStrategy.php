@@ -3,9 +3,6 @@
 namespace PHP\Cache\Core\Strategy;
 
 use PHP\Cache\API\CacheStrategy;
-use PHP\Cache\Core\System\FileCacheSystem;
-use PHP\Cache\Core\System\StaticArrayCacheSystem;
-use Symfony\Component\Yaml\Tests\ParseExceptionTest;
 
 class ExactlyCacheStrategy extends BaseCacheStrategy {
 

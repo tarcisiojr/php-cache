@@ -2,6 +2,7 @@
     "name": "tarcisiojr/php-cache",
     "description": "Sistema para cache de métodos baseado em https://github.com/spatie/once",
     "type": "library",
+    "license": "MIT",
     "authors": [
         {
             "name": "Tarcísio Júnior",

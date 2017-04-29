@@ -145,7 +145,7 @@ class Cache {
     }
 
     private static function getStateCache() {
-        if (static::$stateCache == null) {
+        if (static::$stateCache === null) {
             static::$stateCache = new FileCacheSystem();
         }
 
