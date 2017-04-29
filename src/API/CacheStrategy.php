@@ -10,7 +10,7 @@ interface CacheStrategy {
     public function init();
 
     /**
-     * @param $state Last state.
+     * @param mixed $state Last state.
      *
      * @return bool
      */

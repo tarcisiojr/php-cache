@@ -1,6 +1,8 @@
 <?php
 
-namespace PHP\Cache\Core\System;
+namespace Test\PHP\Cache\Core\System;
+
+use PHP\Cache\Core\System\FileCacheSystem;
 
 class Value implements \Serializable {
     public $valueA;

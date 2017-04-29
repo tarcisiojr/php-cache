@@ -1,14 +1,9 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: tarcisio
- * Date: 28/04/17
- * Time: 21:28
- */
 
-namespace PHP\Cache\Core\Strategy;
+namespace Test\PHP\Cache\Core\Strategy;
 
 use PHP\Cache\API\CacheStrategy;
+use PHP\Cache\Core\Strategy\DefaultCacheStrategy;
 use PHP\Cache\Core\System\StaticArrayCacheSystem;
 
 class DefaultCacheStrategyTest extends \PHPUnit_Framework_TestCase {

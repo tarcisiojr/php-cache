@@ -10,7 +10,8 @@
     ],
     "autoload": {
         "psr-4": {
-            "PHP\\Cache\\": "src/"
+            "PHP\\Cache\\": "src/",
+            "Test\\PHP\\Cache\\": "test/"
         }
     },
     "require": {
