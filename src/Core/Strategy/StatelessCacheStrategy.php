@@ -18,7 +18,7 @@ class StatelessCacheStrategy extends BaseCacheStrategy {
     }
 
     private static function getCache() {
-        if (static::$cache == null) {
+        if (static::$cache === null) {
             static::$cache = new StaticArrayCacheSystem();
         }
 
